@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "dashboard-QQP analytics"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "90470aba-e1f9-48ea-8e88-ff6378cd7c5d"
+  }
+}

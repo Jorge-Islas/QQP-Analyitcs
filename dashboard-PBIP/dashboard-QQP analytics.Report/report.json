@@ -1,0 +1,60 @@
+{
+  "config": "{\"version\":\"5.59\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY24SU10\",\"version\":\"5.60\",\"type\":2}},\"activeSectionIndex\":0,\"defaultDrillFilterOtherVisuals\":true,\"settings\":{\"useNewFilterPaneExperience\":true,\"allowChangeFilterTypes\":true,\"useStylableVisualContainerHeader\":true,\"queryLimitOption\":6,\"exportDataMode\":1,\"useDefaultAggregateDisplayName\":true},\"objects\":{\"section\":[{\"properties\":{\"verticalAlignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Top'\"}}}}}]}}",
+  "layoutOptimization": 0,
+  "resourcePackages": [
+    {
+      "resourcePackage": {
+        "disabled": false,
+        "items": [
+          {
+            "name": "CY24SU10",
+            "path": "BaseThemes/CY24SU10.json",
+            "type": 202
+          }
+        ],
+        "name": "SharedResources",
+        "type": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "config": "{}",
+      "displayName": "Página 1",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "b640e7451d9936db75d6",
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"53788aff4c8ae248a9be\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":0,\"z\":0,\"width\":280.1215805471125,\"height\":156.59574468085108,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"datos_productos_seleccionados.producto\",\"active\":true},{\"queryRef\":\"datos_productos_seleccionados.tipo\"},{\"queryRef\":\"datos_productos_seleccionados.unidades\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"datos_productos_seleccionados\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"producto\"},\"Name\":\"datos_productos_seleccionados.producto\",\"NativeReferenceName\":\"producto\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"tipo\"},\"Name\":\"datos_productos_seleccionados.tipo\",\"NativeReferenceName\":\"tipo\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"unidades\"},\"Name\":\"datos_productos_seleccionados.unidades\",\"NativeReferenceName\":\"unidades\"}]},\"expansionStates\":[{\"roles\":[\"Values\"],\"levels\":[{\"queryRefs\":[\"datos_productos_seleccionados.producto\"],\"isCollapsed\":true,\"identityKeys\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"datos_productos_seleccionados\"}},\"Property\":\"producto\"}}],\"isPinned\":true},{\"queryRefs\":[\"datos_productos_seleccionados.tipo\"],\"isCollapsed\":true,\"isPinned\":true},{\"queryRefs\":[\"datos_productos_seleccionados.unidades\"],\"isCollapsed\":true}],\"root\":{\"identityValues\":null}}],\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Basic'\"}}}}}],\"general\":[{\"properties\":{\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"datos_productos_seleccionados\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"producto\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'HUEVO'\"}}]]}}}]}}}}]},\"cachedFilterDisplayItems\":[{\"id\":{\"scopeId\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"datos_productos_seleccionados\"}},\"Property\":\"producto\"}},\"Right\":{\"Literal\":{\"Value\":\"'HUEVO'\"}}}}},\"displayName\":\"HUEVO\"}]}}",
+          "filters": "[]",
+          "height": 156.60,
+          "width": 280.12,
+          "x": 0.00,
+          "y": 0.00,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"6fe9cee166b0b80a8cb0\",\"layouts\":[{\"id\":0,\"position\":{\"x\":280.1215805471125,\"y\":0,\"z\":1,\"width\":999.8784194528876,\"height\":719.7568389057751,\"tabOrder\":1}}],\"singleVisual\":{\"visualType\":\"lineChart\",\"projections\":{\"Category\":[{\"queryRef\":\"datos_productos_seleccionados.fechaRegistro.Variación.Jerarquía de fechas.Año\",\"active\":true},{\"queryRef\":\"datos_productos_seleccionados.fechaRegistro.Variación.Jerarquía de fechas.Trimestre\",\"active\":true},{\"queryRef\":\"datos_productos_seleccionados.fechaRegistro.Variación.Jerarquía de fechas.Mes\",\"active\":true},{\"queryRef\":\"datos_productos_seleccionados.fechaRegistro.Variación.Jerarquía de fechas.Día\"}],\"Y\":[{\"queryRef\":\"datos_productos_seleccionados.Precio promedio\"}],\"Series\":[{\"queryRef\":\"datos_productos_seleccionados.nombreComercial\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"datos_productos_seleccionados\",\"Type\":0}],\"Select\":[{\"HierarchyLevel\":{\"Expression\":{\"Hierarchy\":{\"Expression\":{\"PropertyVariationSource\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Name\":\"Variación\",\"Property\":\"fechaRegistro\"}},\"Hierarchy\":\"Jerarquía de fechas\"}},\"Level\":\"Año\"},\"Name\":\"datos_productos_seleccionados.fechaRegistro.Variación.Jerarquía de fechas.Año\",\"NativeReferenceName\":\"fechaRegistro Año\"},{\"HierarchyLevel\":{\"Expression\":{\"Hierarchy\":{\"Expression\":{\"PropertyVariationSource\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Name\":\"Variación\",\"Property\":\"fechaRegistro\"}},\"Hierarchy\":\"Jerarquía de fechas\"}},\"Level\":\"Trimestre\"},\"Name\":\"datos_productos_seleccionados.fechaRegistro.Variación.Jerarquía de fechas.Trimestre\",\"NativeReferenceName\":\"fechaRegistro Trimestre\"},{\"HierarchyLevel\":{\"Expression\":{\"Hierarchy\":{\"Expression\":{\"PropertyVariationSource\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Name\":\"Variación\",\"Property\":\"fechaRegistro\"}},\"Hierarchy\":\"Jerarquía de fechas\"}},\"Level\":\"Mes\"},\"Name\":\"datos_productos_seleccionados.fechaRegistro.Variación.Jerarquía de fechas.Mes\",\"NativeReferenceName\":\"fechaRegistro Mes\"},{\"HierarchyLevel\":{\"Expression\":{\"Hierarchy\":{\"Expression\":{\"PropertyVariationSource\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Name\":\"Variación\",\"Property\":\"fechaRegistro\"}},\"Hierarchy\":\"Jerarquía de fechas\"}},\"Level\":\"Día\"},\"Name\":\"datos_productos_seleccionados.fechaRegistro.Variación.Jerarquía de fechas.Día\",\"NativeReferenceName\":\"fechaRegistro Día\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Precio promedio\"},\"Name\":\"datos_productos_seleccionados.Precio promedio\",\"NativeReferenceName\":\"Precio promedio\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"nombreComercial\"},\"Name\":\"datos_productos_seleccionados.nombreComercial\",\"NativeReferenceName\":\"nombreComercial\"}]},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 719.76,
+          "width": 999.88,
+          "x": 280.12,
+          "y": 0.00,
+          "z": 1.00
+        },
+        {
+          "config": "{\"name\":\"c63be9a8303318e5cbda\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":250.94224924012158,\"z\":2,\"width\":280.1215805471125,\"height\":468.8145896656535,\"tabOrder\":2}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"datos_productos_seleccionados.marca\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"datos_productos_seleccionados\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"marca\"},\"Name\":\"datos_productos_seleccionados.marca\",\"NativeReferenceName\":\"marca\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Basic'\"}}}}}],\"general\":[{\"properties\":{}}]}}}",
+          "filters": "[]",
+          "height": 468.81,
+          "width": 280.12,
+          "x": 0.00,
+          "y": 250.94,
+          "z": 2.00
+        }
+      ],
+      "width": 1280.00
+    }
+  ]
+}
