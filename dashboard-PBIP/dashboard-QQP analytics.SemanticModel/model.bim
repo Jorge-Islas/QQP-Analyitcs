@@ -4,7 +4,7 @@
     "annotations": [
       {
         "name": "PBI_QueryOrder",
-        "value": "[\"datos_productos_seleccionados\"]"
+        "value": "[\"datos_productos_seleccionados\",\"unidades_estandar\"]"
       },
       {
         "name": "__PBI_TimeIntelligenceEnabled",
@@ -45,6 +45,13 @@
         "joinOnDateBehavior": "datePartOnly",
         "toColumn": "Date",
         "toTable": "LocalDateTable_744f9477-fd5a-4480-be1a-972da0570c6e"
+      },
+      {
+        "name": "AutoDetected_4be4e088-0246-4abd-bee8-262659af989a",
+        "fromColumn": "producto",
+        "fromTable": "datos_productos_seleccionados",
+        "toColumn": "producto",
+        "toTable": "unidades_estandar"
       }
     ],
     "sourceQueryCulture": "es-MX",
@@ -339,17 +346,53 @@
               }
             ],
             "dataType": "double",
-            "expression": [
-              "DIVIDE(datos_productos_seleccionados[precio], datos_productos_seleccionados[unidades], 0) * SWITCH(",
-              "    datos_productos_seleccionados[producto],",
-              "    \"HARINA DE TRIGO\", 1000,",
-              "    \"HUEVO\", 1,",
-              "    \"AZUCAR\",1000,",
-              "    1",
-              ")"
-            ],
+            "expression": "DIVIDE(datos_productos_seleccionados[precio], datos_productos_seleccionados[unidades], 0) * RELATED(unidades_estandar[unidades estandar])",
             "isDataTypeInferred": true,
             "lineageTag": "110032dc-cb04-4b69-a344-0b74d2f96a09",
+            "summarizeBy": "sum",
+            "type": "calculated"
+          },
+          {
+            "name": "identificador",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "3dc56cf8-a923-4599-82a0-9e8ff7d000d8",
+            "sourceColumn": "identificador",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "unidad",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "expression": "RELATED(unidades_estandar[unidad])",
+            "isDataTypeInferred": true,
+            "lineageTag": "896168b1-7652-4f69-858b-9a7e700719da",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "unidades estandar",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "expression": "RELATED(unidades_estandar[unidades estandar])",
+            "formatString": "0",
+            "isDataTypeInferred": true,
+            "lineageTag": "3117b99a-51b6-4520-8b72-e898b7885bac",
             "summarizeBy": "sum",
             "type": "calculated"
           }
@@ -357,7 +400,7 @@
         "lineageTag": "920683e2-c537-45bd-9ef7-b7264d9246bc",
         "measures": [
           {
-            "name": "Precio promedio",
+            "name": "Precio promedio normalizado",
             "annotations": [
               {
                 "name": "PBI_FormatHint",
@@ -366,6 +409,49 @@
             ],
             "expression": "AVERAGE(datos_productos_seleccionados[precio normalizado])",
             "lineageTag": "27f4d6a1-35ef-4546-a478-304d598e18da"
+          },
+          {
+            "name": "Std de precio normalizado",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": "STDEV.S(datos_productos_seleccionados[precio normalizado])",
+            "lineageTag": "04bc8ba1-78f3-4f14-994a-30e752d0edfe"
+          },
+          {
+            "name": "Precio promedio norm. + stdev",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": "[Precio promedio normalizado] + [Std de precio normalizado]",
+            "lineageTag": "6c1bd245-da79-441e-b518-29ffdfc5973a"
+          },
+          {
+            "name": "Precio promedio norm. - stdev",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": "[Precio promedio normalizado] - [Std de precio normalizado]",
+            "lineageTag": "018a8249-58be-4a34-af5e-d6c628dd12f6"
+          },
+          {
+            "name": "Titulo precio promedio",
+            "expression": [
+              "",
+              "VAR tipo_producto = SELECTEDVALUE(datos_productos_seleccionados[tipo])",
+              "RETURN \"Precio promedio de \" & SELECTEDVALUE(datos_productos_seleccionados[producto]) &\" \"& tipo_producto &\" - \"& ",
+              "SELECTEDVALUE(datos_productos_seleccionados[unidades estandar]) &\" \"& SELECTEDVALUE(datos_productos_seleccionados[unidad])"
+            ],
+            "lineageTag": "206440f6-519c-48b1-9d20-4894f4a17eed"
           }
         ],
         "partitions": [
@@ -378,9 +464,10 @@
                 "    Origen = Csv.Document(File.Contents(\"C:\\Users\\jorge\\Documents\\Jorge-Islas\\Repos GitHub\\QQP-Analyitcs\\data\\datos_productos_seleccionados.csv\"),[Delimiter=\",\", Columns=18, Encoding=1252, QuoteStyle=QuoteStyle.None]),",
                 "    #\"Encabezados promovidos\" = Table.PromoteHeaders(Origen, [PromoteAllScalars=true]),",
                 "    #\"Tipo cambiado\" = Table.TransformColumnTypes(#\"Encabezados promovidos\",{{\"\", Int64.Type}, {\"producto\", type text}, {\"presentacion\", type text}, {\"marca\", type text}, {\"categoria\", type text}, {\"catalogo\", type text}, {\"precio\", type number}, {\"fechaRegistro\", type date}, {\"cadenaComercial\", type text}, {\"giro\", type text}, {\"nombreComercial\", type text}, {\"direccion\", type text}, {\"estado\", type text}, {\"municipio\", type text}, {\"latitud\", type number}, {\"longitud\", type number}, {\"unidades\", Int64.Type}, {\"tipo\", type text}}),",
-                "    #\"Filtrar por giro = supermecado\" = Table.SelectRows(#\"Tipo cambiado\", each ([giro] = \"SUPERMERCADO  TIENDA DE AUTOSERVICIO\"))",
+                "    #\"Filtrar por giro = supermecado\" = Table.SelectRows(#\"Tipo cambiado\", each ([giro] = \"SUPERMERCADO  TIENDA DE AUTOSERVICIO\")),",
+                "    #\"Columna combinada insertada\" = Table.AddColumn(#\"Filtrar por giro = supermecado\", \"identificador\", each Text.Combine({[producto], [marca], [tipo], Text.From([unidades], \"es-MX\"), [nombreComercial]}, \" \"), type text)",
                 "in",
-                "    #\"Filtrar por giro = supermecado\""
+                "    #\"Columna combinada insertada\""
               ],
               "type": "m"
             }
@@ -802,6 +889,74 @@
           }
         ],
         "showAsVariationsOnly": true
+      },
+      {
+        "name": "unidades_estandar",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "producto",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "7e828a53-5b20-4db9-8398-0a83f661e9fc",
+            "sourceColumn": "producto",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "unidades estandar",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "426cb943-bb7f-4a6c-a126-fe7225797bb3",
+            "sourceColumn": "unidades estandar",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "unidad",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "2a625029-b784-4723-b883-f5bc4790643a",
+            "sourceColumn": "unidad",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "37555c32-b043-4ff4-a299-f47af7243f1d",
+        "partitions": [
+          {
+            "name": "unidades_estandar",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Origen = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\"i45W8nAM8vRzVHBxVQgJ8nT3V9JRMjQwMABS6UqxOkDpUNcwsKARkCjNy0xJTEktBss4RoU6OwYh1LsrxcYCAA==\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [producto = _t, #\"unidades estandar\" = _t, unidad = _t]),",
+                "    #\"Tipo cambiado\" = Table.TransformColumnTypes(Origen,{{\"producto\", type text}, {\"unidades estandar\", Int64.Type}, {\"unidad\", type text}})",
+                "in",
+                "    #\"Tipo cambiado\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
       }
     ]
   }

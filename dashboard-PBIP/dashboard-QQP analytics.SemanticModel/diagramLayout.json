@@ -20,6 +20,19 @@
             "width": 234
           },
           "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 400,
+            "y": 2
+          },
+          "nodeIndex": "unidades_estandar",
+          "nodeLineageTag": "37555c32-b043-4ff4-a299-f47af7243f1d",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "Todas las tablas",
